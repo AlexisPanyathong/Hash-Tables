@@ -51,7 +51,34 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # We need the key from the hash.
+        index = self._hash_mod(key)
+        
+        # If there isn't anything there, then we can store it to the linkedpair. Make sure to pass in the key & value as well.
+        if self.storage[index] is None:
+            self.storage[index] == LinkedPair(key, value)
+            
+        # Set the node to the storage
+        node = self.storage[index]
+        
+        # While the next node is not None.
+        while node.next is not None:
+            # If the key of node is equal to the key
+            if node.key == key:
+                break
+            
+            # Then the node is equal to the next node.
+            node = node.next
+
+        # If the key of node is equal to the key
+        if node.key == key:
+            
+            # Then the value of node is equal to the value.
+            node.value = value
+            
+        # Otherwise the next node is equal to the storage -> LinkedPair.
+        else:
+            node.next = LinkedPair(key, value)
 
 
 
