@@ -63,6 +63,8 @@ class HashTable:
             elif i == index:
                 print(f"\nWARNING: Not empty.")
                 return None
+            
+        ## DAY 2 ASSIGNMENT:
 
 
 
@@ -100,6 +102,13 @@ class HashTable:
             # just print for now, collision handling tomorrow
             print(f"WARNING: Key doesn't match.")
             return None
+        
+    # DAY 2 ASSIGNMENT
+        index = self._hash_mod(key)
+        for i in range(self.capacity):
+            if self.storage[index] is not None & self.storage[index][0] == key:
+                return self.storage[index][1]
+        return None
 
 
 
