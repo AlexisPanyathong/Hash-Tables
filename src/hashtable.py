@@ -16,7 +16,6 @@ class HashTable:
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
 
-
     def _hash(self, key):
         '''
         Hash an arbitrary key and return an integer.
@@ -51,6 +50,7 @@ class HashTable:
 
         Fill this in.
         '''
+        # DAY 1 ASSIGNMENT:
        # compute index of key
         # index = self._hash_mod(key)
         # # for loop, i in range length of storage
@@ -65,6 +65,23 @@ class HashTable:
         #         return None
             
         ## DAY 2 ASSIGNMENT:
+        
+        index = self._hash_mod(key)
+        
+        # node is the head
+        node = self.storage[index]
+        
+        if node is None:
+            self.storage[index] = LinkedPair(key, value)
+            return
+        # Create a new head
+        newLinkedPair = LinkedPair(key, value)
+        
+        # Set the new LinkedPair to the existing one.
+        newLinkedPair.next = node
+        
+        # Update the index
+        self.storage[index] = newLinkedPair
 
 
 
@@ -90,7 +107,7 @@ class HashTable:
         index = self._hash_mod(key)
         
         for i in range(self.capacity):
-            if self.storage[index] is not None and self.storage[index][0] == key:
+            if self.storage[index] is not None and self.storage[index].key == key:
                 return None
         return 
             
@@ -117,8 +134,8 @@ class HashTable:
     # DAY 2 ASSIGNMENT
         index = self._hash_mod(key)
         for i in range(self.capacity):
-            if self.storage[index] is not None and self.storage[index][0] == key:
-                return self.storage[index][1]
+            if self.storage[index] is not None and self.storage[index].key == key:
+                return self.storage[index].value
         return None
 
 
@@ -130,18 +147,22 @@ class HashTable:
 
         Fill this in.
         '''
+        # DAY 1 ASSIGNMENT:
         # Doubles the capacity of the hash table & rehash all key/value pairs.
-        self.capacity *= 2
-        new_storage = [None] * self.capacity
-        # for index in range storage // 2
-        for i in range(self.capacity // 2):
-            # set node to storage index
-            node = self.storage[i]
-            # if node is not None, pass for now, collision handling tomorrow
-            if node != None:
-                pass
-        # reassign the referance (change the pointer)
-        self.storage = new_storage
+        # self.capacity *= 2
+        # new_storage = [None] * self.capacity
+        # # for index in range storage // 2
+        # for i in range(self.capacity // 2):
+        #     # set node to storage index
+        #     node = self.storage[i]
+        #     # if node is not None, pass for now, collision handling tomorrow
+        #     if node != None:
+        #         pass
+        # # reassign the referance (change the pointer)
+        # self.storage = new_storage
+        
+        # DAY 2 ASSIGNMENT:
+        
 
 
 
