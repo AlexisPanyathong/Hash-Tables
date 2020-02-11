@@ -52,17 +52,17 @@ class HashTable:
         Fill this in.
         '''
        # compute index of key
-        index = self._hash_mod(key)
-        # for loop, i in range length of storage
-        for i in range(len(self.storage)):
-            # if index of storage is None and i is index
-            if self.storage[i] == None and i == index:
-                # then set storage of index to key, value
-                self.storage[i] = [ key,value ]
-            # else if i is index (just print for now, collision handling tomorrow)
-            elif i == index:
-                print(f"\nWARNING: Not empty.")
-                return None
+        # index = self._hash_mod(key)
+        # # for loop, i in range length of storage
+        # for i in range(len(self.storage)):
+        #     # if index of storage is None and i is index
+        #     if self.storage[i] == None and i == index:
+        #         # then set storage of index to key, value
+        #         self.storage[i] = [ key,value ]
+        #     # else if i is index (just print for now, collision handling tomorrow)
+        #     elif i == index:
+        #         print(f"\nWARNING: Not empty.")
+        #         return None
             
         ## DAY 2 ASSIGNMENT:
 
@@ -76,14 +76,25 @@ class HashTable:
 
         Fill this in.
         '''
+        # DAY 1 ASSIGNMENT:
         # compute index of key
+        # index = self._hash_mod(key)
+        # # if the index of storage is None
+        # if self.storage[index] is None:
+        #     # just print for now, collision handling tomorrow
+        #     print(f"WARNING: Key not found.")
+        #     return None
+        # self.storage[index] = None
+        
+        # DAY 2 ASSIGNMENT:
         index = self._hash_mod(key)
-        # if the index of storage is None
-        if self.storage[index] is None:
-            # just print for now, collision handling tomorrow
-            print(f"WARNING: Key not found.")
-            return None
-        self.storage[index] = None
+        
+        for i in range(self.capacity):
+            if self.storage[index] is not None and self.storage[index][0] == key:
+                return None
+        return 
+            
+        
 
     def retrieve(self, key):
         '''
@@ -94,19 +105,19 @@ class HashTable:
         Fill this in.
         '''
         # compute index of key
-        index = self._hash_mod(key)
-        # if storage of index is not None
-        if self.storage[index] != None:
-            return self.storage[index]
-        else:
-            # just print for now, collision handling tomorrow
-            print(f"WARNING: Key doesn't match.")
-            return None
+        # index = self._hash_mod(key)
+        # # if storage of index is not None
+        # if self.storage[index] != None:
+        #     return self.storage[index]
+        # else:
+        #     # just print for now, collision handling tomorrow
+        #     print(f"WARNING: Key doesn't match.")
+        #     return None
         
     # DAY 2 ASSIGNMENT
         index = self._hash_mod(key)
         for i in range(self.capacity):
-            if self.storage[index] is not None & self.storage[index][0] == key:
+            if self.storage[index] is not None and self.storage[index][0] == key:
                 return self.storage[index][1]
         return None
 
