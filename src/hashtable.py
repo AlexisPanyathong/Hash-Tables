@@ -26,13 +26,13 @@ class HashTable:
         return hash(key)
 
 
-    def _hash_djb2(self, key):
-        '''
-        Hash an arbitrary key using DJB2 hash
+    # def _hash_djb2(self, key):
+    #     '''
+    #     Hash an arbitrary key using DJB2 hash
 
-        OPTIONAL STRETCH: Research and implement DJB2
-        '''
-        pass
+    #     OPTIONAL STRETCH: Research and implement DJB2
+    #     '''
+    #     pass
 
 
     def _hash_mod(self, key):
@@ -51,34 +51,18 @@ class HashTable:
 
         Fill this in.
         '''
-        # We need the key from the hash.
+       # compute index of key
         index = self._hash_mod(key)
-        
-        # If there isn't anything there, then we can store it to the linkedpair. Make sure to pass in the key & value as well.
-        if self.storage[index] is None:
-            self.storage[index] == LinkedPair(key, value)
-            
-        # Set the node to the storage
-        node = self.storage[index]
-        
-        # While the next node is not None.
-        while node.next is not None:
-            # If the key of node is equal to the key
-            if node.key == key:
-                break
-            
-            # Then the node is equal to the next node.
-            node = node.next
-
-        # If the key of node is equal to the key
-        if node.key == key:
-            
-            # Then the value of node is equal to the value.
-            node.value = value
-            
-        # Otherwise the next node is equal to the storage -> LinkedPair.
-        else:
-            node.next = LinkedPair(key, value)
+        # for loop, i in range length of storage
+        for i in range(len(self.storage)):
+            # if index of storage is None and i is index
+            if self.storage[i] == None and i == index:
+                # then set storage of index to key, value
+                self.storage[i] = [ key,value ]
+            # else if i is index (just print for now, collision handling tomorrow)
+            elif i == index:
+                print(f"\nWARNING: Not empty.")
+                return None
 
 
 
@@ -90,8 +74,14 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
-
+        # compute index of key
+        index = self._hash_mod(key)
+        # if the index of storage is None
+        if self.storage[index] is None:
+            # just print for now, collision handling tomorrow
+            print(f"WARNING: Key not found.")
+            return None
+        self.storage[index] = None
 
     def retrieve(self, key):
         '''
@@ -101,7 +91,16 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # compute index of key
+        index = self._hash_mod(key)
+        # if storage of index is not None
+        if self.storage[index] != None:
+            return self.storage[index]
+        else:
+            # just print for now, collision handling tomorrow
+            print(f"WARNING: Key doesn't match.")
+            return None
+
 
 
     def resize(self):
@@ -111,7 +110,18 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # Doubles the capacity of the hash table & rehash all key/value pairs.
+        self.capacity *= 2
+        new_storage = [None] * self.capacity
+        # for index in range storage // 2
+        for i in range(self.capacity // 2):
+            # set node to storage index
+            node = self.storage[i]
+            # if node is not None, pass for now, collision handling tomorrow
+            if node != None:
+                pass
+        # reassign the referance (change the pointer)
+        self.storage = new_storage
 
 
 
