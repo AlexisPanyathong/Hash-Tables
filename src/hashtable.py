@@ -162,7 +162,14 @@ class HashTable:
         # self.storage = new_storage
         
         # DAY 2 ASSIGNMENT:
+        old_storage = self.storage
+        self.capacity *= 2
+        self.storage = [None] * self.capacity
         
+        for item in old_storage:
+            while item != None:
+                self.insert(item.key, item.value)
+                item = item.next
 
 
 
