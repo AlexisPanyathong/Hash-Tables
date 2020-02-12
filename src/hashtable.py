@@ -16,7 +16,6 @@ class HashTable:
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
 
-
     def _hash(self, key):
         '''
         Hash an arbitrary key and return an integer.
@@ -26,13 +25,13 @@ class HashTable:
         return hash(key)
 
 
-    def _hash_djb2(self, key):
-        '''
-        Hash an arbitrary key using DJB2 hash
+    # def _hash_djb2(self, key):
+    #     '''
+    #     Hash an arbitrary key using DJB2 hash
 
-        OPTIONAL STRETCH: Research and implement DJB2
-        '''
-        pass
+    #     OPTIONAL STRETCH: Research and implement DJB2
+    #     '''
+    #     pass
 
 
     def _hash_mod(self, key):
@@ -51,7 +50,38 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # DAY 1 ASSIGNMENT:
+       # compute index of key
+        # index = self._hash_mod(key)
+        # # for loop, i in range length of storage
+        # for i in range(len(self.storage)):
+        #     # if index of storage is None and i is index
+        #     if self.storage[i] == None and i == index:
+        #         # then set storage of index to key, value
+        #         self.storage[i] = [ key,value ]
+        #     # else if i is index (just print for now, collision handling tomorrow)
+        #     elif i == index:
+        #         print(f"\nWARNING: Not empty.")
+        #         return None
+            
+        ## DAY 2 ASSIGNMENT:
+        
+        index = self._hash_mod(key)
+        
+        # node is the head
+        node = self.storage[index]
+        
+        if node is None:
+            self.storage[index] = LinkedPair(key, value)
+            return
+        # Create a new head
+        newLinkedPair = LinkedPair(key, value)
+        
+        # Set the new LinkedPair to the existing one.
+        newLinkedPair.next = node
+        
+        # Update the index
+        self.storage[index] = newLinkedPair
 
 
 
@@ -63,8 +93,25 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
-
+        # DAY 1 ASSIGNMENT:
+        # compute index of key
+        # index = self._hash_mod(key)
+        # # if the index of storage is None
+        # if self.storage[index] is None:
+        #     # just print for now, collision handling tomorrow
+        #     print(f"WARNING: Key not found.")
+        #     return None
+        # self.storage[index] = None
+        
+        # DAY 2 ASSIGNMENT:
+        index = self._hash_mod(key)
+        
+        for i in range(self.capacity):
+            if self.storage[index] is not None and self.storage[index].key == key:
+                return None
+        return 
+            
+        
 
     def retrieve(self, key):
         '''
@@ -74,7 +121,23 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # compute index of key
+        # index = self._hash_mod(key)
+        # # if storage of index is not None
+        # if self.storage[index] != None:
+        #     return self.storage[index]
+        # else:
+        #     # just print for now, collision handling tomorrow
+        #     print(f"WARNING: Key doesn't match.")
+        #     return None
+        
+    # DAY 2 ASSIGNMENT
+        index = self._hash_mod(key)
+        for i in range(self.capacity):
+            if self.storage[index] is not None and self.storage[index].key == key:
+                return self.storage[index].value
+        return None
+
 
 
     def resize(self):
@@ -84,7 +147,29 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # DAY 1 ASSIGNMENT:
+        # Doubles the capacity of the hash table & rehash all key/value pairs.
+        # self.capacity *= 2
+        # new_storage = [None] * self.capacity
+        # # for index in range storage // 2
+        # for i in range(self.capacity // 2):
+        #     # set node to storage index
+        #     node = self.storage[i]
+        #     # if node is not None, pass for now, collision handling tomorrow
+        #     if node != None:
+        #         pass
+        # # reassign the referance (change the pointer)
+        # self.storage = new_storage
+        
+        # DAY 2 ASSIGNMENT:
+        old_storage = self.storage
+        self.capacity *= 2
+        self.storage = [None] * self.capacity
+        
+        for item in old_storage:
+            while item != None:
+                self.insert(item.key, item.value)
+                item = item.next
 
 
 
